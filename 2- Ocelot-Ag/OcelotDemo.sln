@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherMicroservice", "WeatherMicroservice\WeatherMicroservice.csproj", "{F444CAAA-F7F5-4A7F-8DAB-27359CEA0790}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "weatherForecast", "weatherForecast\weatherForecast.csproj", "{320F381D-D178-475B-9880-0BA04A402505}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{F444CAAA-F7F5-4A7F-8DAB-27359CEA0790}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F444CAAA-F7F5-4A7F-8DAB-27359CEA0790}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F444CAAA-F7F5-4A7F-8DAB-27359CEA0790}.Release|Any CPU.Build.0 = Release|Any CPU
+		{320F381D-D178-475B-9880-0BA04A402505}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{320F381D-D178-475B-9880-0BA04A402505}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{320F381D-D178-475B-9880-0BA04A402505}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{320F381D-D178-475B-9880-0BA04A402505}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
