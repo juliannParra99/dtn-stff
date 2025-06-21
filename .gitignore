@@ -75,3 +75,6 @@ ScaffoldingReadMe.txt
 *.edmx.sql
 *.edmx.diagram
 *.dbmdl
+
+# Visual Studio workspace settings
+.vs/

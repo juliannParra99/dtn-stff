@@ -179,5 +179,89 @@ namespace nodes_linked_lists
                 Console.WriteLine("Element eliminated in position " + position);
             }
         }
+
+        public void SelectionSort(Comparison<T> comparison)
+        {
+            Nodes<T> current = First;
+            if(current == null)
+            {
+                Console.WriteLine("List is empty");
+                return;
+            }else if(current.Next == null)
+            {
+                Console.WriteLine("List already sorted");
+                return;
+            }else
+            {
+                Nodes<T> i, j, min;
+                for(i = First; i != null; i = i.Next)
+                {
+                    min = i;
+                    for(j = i.Next; j != null; j = j.Next)
+                    {
+                        if(comparison(j.Data, min.Data) <0)
+                        {
+                            min = j;
+                        }
+                    }
+
+                    if(min != i)
+                    {
+                        T? data = i.Data;
+                        i.Data = min.Data;
+                        min.Data = data;
+                    }
+                }
+
+                Console.WriteLine("List sorted");
+            }
+        }
+
+        public int ResultiIntComparison(int data1, int data2)
+        {
+            //return data1 - data2;
+            return data1.CompareTo(data2);
+        }
+
+        //superficial copy; the data inside the list reference the same nodes
+        // so if you change the original list, the copy gonna be affected
+        public CustomLinkedList<T> ShallowCopyCustomLinkedList()
+        {
+            CustomLinkedList<T> newList = new CustomLinkedList<T>();
+            Nodes<T> current = First;
+
+            while (current != null)
+            {
+                newList.AddLast(current.Data);
+                current = current.Next;
+            }
+
+            Console.WriteLine("List copied correctly");
+            return newList;
+        }
+
+        //indepent from the original list; we must use a callback to duplicate the info
+        public CustomLinkedList<T> DeepCopyCustomLinkedList(Func<T, T> cloneFunction)
+        {
+            CustomLinkedList<T> newList = new CustomLinkedList<T>();
+            Nodes<T> current = First;
+
+            if (current == null)
+            {
+                Console.WriteLine("List is empty");
+                return null;
+            }
+
+            while (current != null)
+            {
+                // Usamos la función de clonación que pasás como parámetro
+                T clonedData = cloneFunction(current.Data);
+                newList.AddLast(clonedData);
+                current = current.Next;
+            }
+
+            Console.WriteLine("Deep copy created correctly");
+            return newList;
+        }
     }
 }
