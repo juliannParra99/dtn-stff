@@ -50,3 +50,22 @@ Console.WriteLine("Top: " + newStack.Top.Data);
 newStack.Pop();
 Console.WriteLine("Top: " + newStack.Top.Data);
 
+Console.WriteLine("--- QUEUE---");
+
+CustomQueue<int> newQueue = new CustomQueue<int>();
+
+newQueue.Enqueue(10);
+newQueue.Enqueue(20);
+newQueue.Enqueue(30);
+
+Console.WriteLine("First in queue (Head): " + newQueue.Head.Data);
+Console.WriteLine("Last in queue (Tail): " + newQueue.Tail.Data);
+
+int removed = newQueue.Dequeue();
+Console.WriteLine("Removed from queue: " + removed);
+
+if (newQueue.Head != null)
+    Console.WriteLine("New Head: " + newQueue.Head.Data);
+else
+    Console.WriteLine("Queue is now empty.");
+
