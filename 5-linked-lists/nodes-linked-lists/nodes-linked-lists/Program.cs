@@ -37,3 +37,16 @@ Console.WriteLine("---Copy List example---");
 CustomLinkedList<int> listCopy = numericList.ShallowCopyCustomLinkedList();
 Console.WriteLine("---New list---");
 numericList.ShowCustumLinkedList();
+
+Console.WriteLine("------");
+Console.WriteLine("------");
+Console.WriteLine("--- STACK---");
+CustomStack<int> newStack = new CustomStack<int>();
+newStack.Push(1);
+newStack.Push(2);
+newStack.Push(3);
+
+Console.WriteLine("Top: " + newStack.Top.Data);
+newStack.Pop();
+Console.WriteLine("Top: " + newStack.Top.Data);
+
