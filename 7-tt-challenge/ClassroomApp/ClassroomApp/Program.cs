@@ -1,4 +1,5 @@
 using ClassroomApp.Data;
+using ClassroomApp.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ClassRoomContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection"), b =>
         b.MigrationsAssembly("ClassroomApp")));
+
+builder.Services.AddScoped<IStudentService, StudentService>();
 
 var app = builder.Build();
 

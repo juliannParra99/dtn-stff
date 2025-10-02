@@ -21,24 +21,24 @@ namespace ClassroomApp.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("ClassroomApp.Model.Course", b =>
+            modelBuilder.Entity("ClassroomApp.Entities.Course", b =>
                 {
-                    b.Property<int>("Code")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Code"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("Code");
+                    b.HasKey("Id");
 
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("ClassroomApp.Model.Student", b =>
+            modelBuilder.Entity("ClassroomApp.Entities.Student", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -61,13 +61,13 @@ namespace ClassroomApp.Migrations
 
             modelBuilder.Entity("CourseStudent", b =>
                 {
-                    b.Property<int>("CoursesCode")
+                    b.Property<int>("CoursesId")
                         .HasColumnType("integer");
 
                     b.Property<int>("StudentsId")
                         .HasColumnType("integer");
 
-                    b.HasKey("CoursesCode", "StudentsId");
+                    b.HasKey("CoursesId", "StudentsId");
 
                     b.HasIndex("StudentsId");
 
@@ -76,13 +76,13 @@ namespace ClassroomApp.Migrations
 
             modelBuilder.Entity("CourseStudent", b =>
                 {
-                    b.HasOne("ClassroomApp.Model.Course", null)
+                    b.HasOne("ClassroomApp.Entities.Course", null)
                         .WithMany()
-                        .HasForeignKey("CoursesCode")
+                        .HasForeignKey("CoursesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ClassroomApp.Model.Student", null)
+                    b.HasOne("ClassroomApp.Entities.Student", null)
                         .WithMany()
                         .HasForeignKey("StudentsId")
                         .OnDelete(DeleteBehavior.Cascade)

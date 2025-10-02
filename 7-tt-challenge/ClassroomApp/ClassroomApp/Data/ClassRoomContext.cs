@@ -1,4 +1,4 @@
-﻿using ClassroomApp.Model;
+﻿using ClassroomApp.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.Options;

@@ -15,13 +15,13 @@ namespace ClassroomApp.Migrations
                 name: "Courses",
                 columns: table => new
                 {
-                    Code = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Courses", x => x.Code);
+                    table.PrimaryKey("PK_Courses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -42,17 +42,17 @@ namespace ClassroomApp.Migrations
                 name: "CourseStudent",
                 columns: table => new
                 {
-                    CoursesCode = table.Column<int>(type: "integer", nullable: false),
+                    CoursesId = table.Column<int>(type: "integer", nullable: false),
                     StudentsId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CourseStudent", x => new { x.CoursesCode, x.StudentsId });
+                    table.PrimaryKey("PK_CourseStudent", x => new { x.CoursesId, x.StudentsId });
                     table.ForeignKey(
-                        name: "FK_CourseStudent_Courses_CoursesCode",
-                        column: x => x.CoursesCode,
+                        name: "FK_CourseStudent_Courses_CoursesId",
+                        column: x => x.CoursesId,
                         principalTable: "Courses",
-                        principalColumn: "Code",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_CourseStudent_Students_StudentsId",

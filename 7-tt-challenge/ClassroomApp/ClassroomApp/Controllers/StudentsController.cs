@@ -1,5 +1,6 @@
 ﻿using ClassroomApp.Data;
-using ClassroomApp.Model;
+using ClassroomApp.Entities;
+using ClassroomApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,54 +10,32 @@ namespace ClassroomApp.Controllers
     [Route("api/[controller]")]
     public class StudentsController : ControllerBase
     {
-        private readonly ClassRoomContext _context;
+        private readonly IStudentService _student;
 
-        public StudentsController(ClassRoomContext context)
+        public StudentsController(IStudentService student)
         {
-            _context = context;
+            _student = student;
         }
 
         // it shows students with their courses
         [HttpGet]
         public async Task<ActionResult> GetStudentsWithCourses()
         {
-            var studentsWithCourses = await _context.Students
-                .Include(s => s.Courses)
-                .Select(s => new
-                {
-                    StudentId = s.Id,
-                    StudentName = s.Name,
-                    StudentLastName = s.LastName,
-                    Courses = s.Courses.Select(c => new
-                    {
-                        CourseCode = c.Code,
-                        CourseName = c.Name
-                    }).ToList()
-                })
-                .ToListAsync();
+            var allStudents = await _student.GetAllAsync();
 
-            return Ok(studentsWithCourses);
+            if (allStudents == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(allStudents);
         }
 
         // student with their courses
-        [HttpGet("{id}")]
+        [HttpGet("getStudentById/{id}")]
         public async Task<ActionResult> GetStudent(int id)
         {
-            var student = await _context.Students
-                .Include(s => s.Courses)
-                .Where(s => s.Id == id)
-                .Select(s => new
-                {
-                    StudentId = s.Id,
-                    StudentName = s.Name,
-                    StudentLastName = s.LastName,
-                    Courses = s.Courses.Select(c => new
-                    {
-                        CourseCode = c.Code,
-                        CourseName = c.Name
-                    }).ToList()
-                })
-                .FirstOrDefaultAsync();
+            var student = await _student.GetByIdAsync(id);
 
             if (student == null)
                 return NotFound();
@@ -65,12 +44,19 @@ namespace ClassroomApp.Controllers
         }
 
         // POST: api/students - Crear un nuevo estudiante
-        [HttpPost]
-        public async Task<ActionResult> CreateStudent(Student student)
+        [HttpPost("createStudent")]
+        public async Task<ActionResult> CreateStudent([FromBody] Student student)
         {
-            _context.Students.Add(student);
-            await _context.SaveChangesAsync();
-            return Ok(student);
+            var newStudent = await _student.CreateStudentAsync(student);
+            return Ok(newStudent);
+        }
+
+        [HttpDelete("deleteStudent/{id}")]
+        public async Task<bool> DeleteStudent(int id)
+        {
+            var result = await _student.DeleteAsync(id);
+
+            return result;
         }
     }
 }

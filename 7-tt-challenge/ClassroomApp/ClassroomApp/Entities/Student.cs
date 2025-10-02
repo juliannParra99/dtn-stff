@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
-namespace ClassroomApp.Model
+namespace ClassroomApp.Entities
 {
     public class Student
     {
@@ -8,6 +9,7 @@ namespace ClassroomApp.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
+        [JsonIgnore] //this avoid cycle references
         public List<Course> Courses { get; set; } = new();
     }
 }

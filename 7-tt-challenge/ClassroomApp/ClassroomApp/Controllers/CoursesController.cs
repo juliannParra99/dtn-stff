@@ -1,5 +1,5 @@
 ﻿using ClassroomApp.Data;
-using ClassroomApp.Model;
+using ClassroomApp.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -25,7 +25,7 @@ namespace ClassroomApp.Controllers
                 .Include(c => c.Students)
                 .Select(c => new
                 {
-                    CourseCode = c.Code,
+                    CourseCode = c.Id,
                     CourseName = c.Name,
                     Students = c.Students.Select(s => new
                     {
@@ -40,7 +40,7 @@ namespace ClassroomApp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateCourse(Course course)
+        public async Task<ActionResult> CreateCourse( [FromBody] Course course)
         {
             _context.Courses.Add(course);
             await _context.SaveChangesAsync();
@@ -52,12 +52,12 @@ namespace ClassroomApp.Controllers
         public async Task<ActionResult> EnrollStudent([FromBody] EnrollRequest request)
         {
             var student = await _context.Students.Include(s => s.Courses).FirstOrDefaultAsync(s => s.Id == request.StudentId);
-            var course = await _context.Courses.FirstOrDefaultAsync(c => c.Code == request.CourseCode);
+            var course = await _context.Courses.FirstOrDefaultAsync(c => c.Id == request.CourseCode);
 
             if (student == null || course == null)
                 return NotFound();
 
-            if (!student.Courses.Any(c => c.Code == request.CourseCode))
+            if (!student.Courses.Any(c => c.Id == request.CourseCode))
             {
                 student.Courses.Add(course);
                 await _context.SaveChangesAsync();
