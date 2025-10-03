@@ -33,10 +33,20 @@ namespace ClassroomApp.Services
             return student;
         }
 
-        //public Task UpdateAsync(Student student)
-        //{
+        public async Task<Student> UpdateStudentAsync(int id, Student student)
+        {
+            var currentStudent = await _context.Students.FirstOrDefaultAsync(s => s.Id == id);
 
-        //}
+            if(currentStudent != null)
+            {
+                currentStudent.Name = student.Name;
+                currentStudent.LastName = student.LastName;
+                await _context.SaveChangesAsync();
+                return student;
+            }
+
+            return null;
+        }
 
         public async Task<bool> DeleteAsync(int id)
         {

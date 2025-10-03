@@ -58,5 +58,18 @@ namespace ClassroomApp.Controllers
 
             return result;
         }
+
+        [HttpPut("UpdateStudent/{id}")]
+        public async Task<ActionResult> UpdateStudent([FromBody] Student student, int id)
+        {
+            var studentResult = await _student.UpdateStudentAsync(id, student);
+
+            if(studentResult != null)
+            {
+                return Ok(studentResult);
+            }
+
+            return NotFound();
+        }
     }
 }

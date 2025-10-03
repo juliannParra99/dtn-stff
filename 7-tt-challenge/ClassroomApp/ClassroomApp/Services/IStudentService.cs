@@ -9,7 +9,7 @@ namespace ClassroomApp.Services
         Task<Student> CreateStudentAsync(Student student);
         Task<bool> DeleteAsync(int id);
 
-        //Task UpdateAsync(Student student);
+        Task<Student> UpdateStudentAsync(int id, Student student);
 
         // Specific ones of the domain
         //Task<Student> GetStudentWithCoursesAsync(int studentId);
