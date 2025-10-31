@@ -16,6 +16,7 @@ builder.Services.AddDbContext<ClassRoomContext>(options =>
         b.MigrationsAssembly("ClassroomApp")));
 
 builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<ICourseService, CourseService>();
 
 var app = builder.Build();
 

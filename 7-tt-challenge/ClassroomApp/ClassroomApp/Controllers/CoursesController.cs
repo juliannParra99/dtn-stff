@@ -1,5 +1,6 @@
 ﻿using ClassroomApp.Data;
 using ClassroomApp.Entities;
+using ClassroomApp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,10 +12,13 @@ namespace ClassroomApp.Controllers
     public class CoursesController : ControllerBase
     {
         private readonly ClassRoomContext _context;
+        private readonly ICourseService _courseS;
 
-        public CoursesController(ClassRoomContext context)
+
+        public CoursesController(ClassRoomContext context, ICourseService courseService)
         {
             _context = context;
+            _courseS = courseService;
         }
 
         // it shows all courses with their students 
@@ -46,6 +50,14 @@ namespace ClassroomApp.Controllers
             await _context.SaveChangesAsync();
             return Ok(course);
         }
+
+        [HttpDelete("delete-course/{id}")]
+        public async Task<ActionResult> DeleteCourse(int id)
+        {
+            bool result = await _courseS.DeleteAsync(id);
+            return Ok(result);
+        }
+
 
         // - enroll student into course
         [HttpPost("enroll")]
